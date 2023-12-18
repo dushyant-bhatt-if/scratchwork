@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "1018872533671",
+    "project_id": "mvp-project-408f4",
+    "storage_bucket": "mvp-project-408f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018872533671:ios:6e2f76016fa10056c74182",
+        "android_client_info": {
+          "package_name": "com.Scratchwork.ScratchworkGame"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6VbphG1xhfbttd7exYdz7mvvCf53S_sI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
