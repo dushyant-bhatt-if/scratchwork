@@ -1,0 +1,11 @@
+This is a custom date picker plugin
+There are three types of date picker:
+    1.Collapsible DatePicker
+    2.Popup DatePicker
+    3.Bottom Navigation DatePicker
+To use drag them from prefabs folder and drop on hierarchy
+For more, please check demo scene
+
+Asset uses ScrollingCalendar under Unity UI Extensions License (BSD3); see Third-Party Notices.txt file in package for details.
+Asset uses Unity-UIGradient under The MIT License (MIT); see Third-Party Notices.txt file in package for details.
+Asset uses Audio under Simplified Pixabay License; see Third-Party Notices.txt file in package for details.
