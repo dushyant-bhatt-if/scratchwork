@@ -59,7 +59,7 @@ public class Firebasedata : MonoBehaviour
                     {
                         LoginManager.ins.clr = false;
 
-                        LoginManager.ins.showToast("Please Enter Unique code!", 3);
+                        LoginManager.ins.showToast("Please enter unique code!", 3);
                         Handheld.Vibrate();
                         LoginManager.ins.shakeDuration = 2;
                         break;
@@ -68,7 +68,7 @@ public class Firebasedata : MonoBehaviour
                     {
                         db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
                         LoginManager.ins.clr = true;
-                        LoginManager.ins.showToast("Succesfully Signed UP !", 3);
+                        LoginManager.ins.showToast("Succesfully signed up!", 3);
                         UImanager.ins.SignUpScreen.SetActive(false);
                         UImanager.ins.MainScreen.SetActive(true);
                         updateUsers();

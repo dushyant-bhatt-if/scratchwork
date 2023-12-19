@@ -88,13 +88,13 @@ public class LoginManager : MonoBehaviour
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
             {
                 clr = true;
-                showToast("Login success !", 3);
+                showToast("Login success!", 3);
                 UImanager.ins.GetOnloginSuccess(checkCode);
                 break;
             }
             else
             {
-                showToast("Please check login details !", 3);
+                showToast("Please check login details!", 3);
                 Handheld.Vibrate();
                 shakeDuration = 2;
             }
@@ -134,7 +134,7 @@ public class LoginManager : MonoBehaviour
                     }
                     else
                     {
-                        showToast("Please check confirm password  !", 3);
+                        showToast("Please check confirm password!", 3);
                         Handheld.Vibrate();
                         shakeDuration = 2;
                     }
@@ -260,9 +260,9 @@ public class LoginManager : MonoBehaviour
     public void OnBackKeyClicked()
     {
 
-        _PinField2.text = "••••";
-        _PinField.text = "";
-        PasswordField.text = "";
+       // _PinField2.text = "••••";
+        _PinField.text = "1111";
+        PasswordField.text = "1111";
         MemberCodeField.text= NewPasswordField.text = ConfirmPasswordField.text = "";
         UImanager.ins.loginScreen1.SetActive(true);
         UImanager.ins.loginScreen2.SetActive(false);
