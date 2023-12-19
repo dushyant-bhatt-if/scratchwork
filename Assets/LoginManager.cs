@@ -37,6 +37,7 @@ public class LoginManager : MonoBehaviour
     // Start is called before the first frame update 
     void Start()
     {
+        clr = false;
         _PinField.DeactivateInputField();
         _PinField.ActivateInputField();       
     }
@@ -59,7 +60,7 @@ public class LoginManager : MonoBehaviour
         }
         if(!isValid)
         {
-            showToast("please check entered Code!", 3);
+            showToast("Please check entered Code!", 3);
             Handheld.Vibrate();
             shakeDuration = 2;
         }
@@ -86,7 +87,8 @@ public class LoginManager : MonoBehaviour
                 &&
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
             {
-                showToast("Login Success !", 3);
+                clr = true;
+                showToast("Login success !", 3);
                 UImanager.ins.GetOnloginSuccess(checkCode);
                 break;
             }
@@ -102,7 +104,14 @@ public class LoginManager : MonoBehaviour
     public void ClickOnSignUp()
     {
         string _mCode = MemberCodeField.text;
-        string _password = NewPasswordField.text;
+        if (_mCode == "")
+        {
+            showToast("Please enter unique code first!", 3);
+            Handheld.Vibrate();
+            shakeDuration = 2;
+            return;
+        }
+            string _password = NewPasswordField.text;
         string _cPassword = ConfirmPasswordField.text;
         screen = transform.GetComponent<UImanager>().SignUpScreen.transform;
         bool isValid = false;
@@ -114,7 +123,7 @@ public class LoginManager : MonoBehaviour
                 Debug.Log("yes code is already avaialble .." + _mCode);
             } 
         }
-
+      
         if(!isValid)
         { 
                 if (_password != "")
@@ -132,7 +141,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else
                 {
-                    showToast("Password can't be Empty!", 3);
+                    showToast("Password can't be empty!", 3);
                     Handheld.Vibrate();
                     shakeDuration = 2;
                 };
@@ -140,7 +149,7 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                showToast("Please use Unique code!", 3);
+                showToast("Please use unique code!", 3);
                 Handheld.Vibrate();
                 shakeDuration = 2;
 
@@ -182,15 +191,18 @@ public class LoginManager : MonoBehaviour
     {
         StartCoroutine(showToastCOR(text, duration));
     }
-
+    public bool clr;
     private IEnumerator showToastCOR(string text,
         int duration)
     {
         Color orginalColor = Color.red;
+        if (clr)
+        { orginalColor = Color.green; }
+        else
+        { orginalColor = Color.red; }
 
         txt.text = text;
         txt.enabled = true;
-
         //Fade in
         yield return fadeInAndOut(txt, true, 0.5f);
 
@@ -207,6 +219,8 @@ public class LoginManager : MonoBehaviour
 
         txt.enabled = false;
         txt.color = orginalColor;
+        clr = false;
+
     }
 
     IEnumerator fadeInAndOut(Text targetText, bool fadeIn, float duration)
@@ -223,8 +237,14 @@ public class LoginManager : MonoBehaviour
             a = 1f;
             b = 0f;
         }
+       
 
         Color currentColor = Color.red;
+
+        if (clr)
+        { currentColor = Color.green; }
+        else
+        { currentColor = Color.red; }
         float counter = 0f;
 
         while (counter < duration)

@@ -79,7 +79,7 @@ public class UImanager : MonoBehaviour
         LoginScreen.SetActive(false);
         loginmenuScreen.SetActive(false);
         DashboardScreen.SetActive(true);
-        lableTxt.text = "Welcome  " + _mCode + " !";
+        lableTxt.text = "Welcome  " + _mCode + "!";
     }
 
 

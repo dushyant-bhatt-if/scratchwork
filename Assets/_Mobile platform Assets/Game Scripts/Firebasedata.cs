@@ -34,30 +34,7 @@ public class Firebasedata : MonoBehaviour
     private void Start()
     {
         updateUsers();
-       /* CurrentUser = new List<User>();
-
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(async task =>
-        {
-            var dependencyStatus = task.Result;
-            db = FirebaseDatabase.GetInstance(firebaseUrl);
-
-            if (dependencyStatus == DependencyStatus.Available)
-            {
-                    var snapshot = await db.GetReference("User").GetValueAsync(); 
-                    string data = snapshot.GetRawJsonValue();
-                    JSONNode  CurrentUser_ = SimpleJSON.JSONNode.Parse(data);
-                Debug.Log("Count : " + CurrentUser_.Count);
-                for(int i=0;i<CurrentUser_.Count;i++)
-                {
-                    User us = new User();
-                    us.CPasswordField = CurrentUser_[i][3];
-                    us.Membercode = CurrentUser_[i][2];
-                    us.PasswordField = CurrentUser_[i][0];
-                    us.DobField = CurrentUser_[i][1];
-                    CurrentUser.Add(us);
-                }
-              }
-        });*/
+     
     }
     public void AddUser()
     {
@@ -80,6 +57,8 @@ public class Firebasedata : MonoBehaviour
                 {
                     if(us.Membercode == user.Membercode)
                     {
+                        LoginManager.ins.clr = false;
+
                         LoginManager.ins.showToast("Please Enter Unique code!", 3);
                         Handheld.Vibrate();
                         LoginManager.ins.shakeDuration = 2;
@@ -88,6 +67,7 @@ public class Firebasedata : MonoBehaviour
                     else
                     {
                         db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
+                        LoginManager.ins.clr = true;
                         LoginManager.ins.showToast("Succesfully Signed UP !", 3);
                         UImanager.ins.SignUpScreen.SetActive(false);
                         UImanager.ins.MainScreen.SetActive(true);

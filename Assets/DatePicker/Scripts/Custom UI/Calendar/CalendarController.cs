@@ -263,7 +263,7 @@ namespace CustomDatePicker
             else
             {
                 Debug.Log(selectedDay + " .. " + str[0] + "..." + selectedYear);
-                LoginManager.ins.DateField.captionText.text = selectedDay.ToString();
+                LoginManager.ins.DateField.captionText.text = selectedDay.ToString("00");
                 LoginManager.ins.MonthField.captionText.text = str[0].ToString();
                 LoginManager.ins.YearField.captionText.text = selectedYear.ToString();
                 if (date != null)
