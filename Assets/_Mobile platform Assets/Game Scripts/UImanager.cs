@@ -14,7 +14,8 @@ public class UImanager : MonoBehaviour
         loginmenuScreen,
         DashboardScreen,
         loginScreen1,
-        loginScreen2;
+        loginScreen2,
+        loadingScreen;
     public InputField searchBar;
     public Text lableTxt;
     private void Awake()
@@ -42,6 +43,7 @@ public class UImanager : MonoBehaviour
 
     public void OnPlayClick()
     {
+        loadingScreen.SetActive(true);
         SceneManager.LoadSceneAsync(1);
     }
 

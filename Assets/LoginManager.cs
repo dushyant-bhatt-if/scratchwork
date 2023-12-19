@@ -39,9 +39,12 @@ public class LoginManager : MonoBehaviour
     {
         clr = false;
         _PinField.DeactivateInputField();
-        _PinField.ActivateInputField();       
+        _PinField.ActivateInputField();
+        _PinField.text = transform.GetComponent<Firebasedata>().GenerateCode();
+        PasswordField.text = transform.GetComponent<Firebasedata>().GenerateCode();
+
     }
-  
+
 
     public void checkPin()
     {
@@ -88,7 +91,7 @@ public class LoginManager : MonoBehaviour
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
             {
                 clr = true;
-                showToast("Login success!", 3);
+                showToast("Login success!", 2);
                 UImanager.ins.GetOnloginSuccess(checkCode);
                 break;
             }
@@ -261,8 +264,8 @@ public class LoginManager : MonoBehaviour
     {
 
        // _PinField2.text = "••••";
-        _PinField.text = "1111";
-        PasswordField.text = "1111";
+        _PinField.text =  transform.GetComponent<Firebasedata>().GenerateCode();
+        PasswordField.text = transform.GetComponent<Firebasedata>().GenerateCode(); 
         MemberCodeField.text= NewPasswordField.text = ConfirmPasswordField.text = "";
         UImanager.ins.loginScreen1.SetActive(true);
         UImanager.ins.loginScreen2.SetActive(false);

@@ -15,7 +15,7 @@ public class Firebasedata : MonoBehaviour
     #region Generate Random Member Code
     const string glyphs = "0123456789"; //add the characters you want
     string myString;
-    string GenerateCode()
+    public string GenerateCode()
     {
         myString = "";
         for (int i = 0; i < 4; i++)
@@ -27,7 +27,7 @@ public class Firebasedata : MonoBehaviour
         Debug.Log(" === "+myString);
     }
     #endregion
-    public string firebaseUrl = "https://mvp-project-f9929-default-rtdb.firebaseio.com/";//"https://mvp-project-408f4-default-rtdb.firebaseio.com/";
+    public string firebaseUrl = "https://mvp-project-f9929-default-rtdb.firebaseio.com/";
 
     public List<User> CurrentUser;
     FirebaseDatabase db;
