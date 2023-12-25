@@ -12,9 +12,7 @@ public class LoginManager : MonoBehaviour
     public InputField PasswordField;
 
     [SerializeField]
-    private InputField _dummyPasswordField;
-    [SerializeField]
-    private TMP_InputField _PinField;
+    public TMP_InputField _PinField;
     [SerializeField]
     private TMP_InputField _PinField2;
     [Header("== SignUp Fields==")]
@@ -50,9 +48,10 @@ public class LoginManager : MonoBehaviour
     {
         string checkCode = _PinField.text;
         screen = UImanager.ins.loginScreen1.transform;
+        StartCoroutine(apiManager.ins.checkMembercode());
 
         //••••
-        bool isValid = false;
+        /*bool isValid = false;
         for (int i = 0; i < transform.GetComponent<Firebasedata>().CurrentUser.Count; i++)
         {
             if (checkCode == transform.GetComponent<Firebasedata>().CurrentUser[i].Membercode)
@@ -60,8 +59,8 @@ public class LoginManager : MonoBehaviour
                 isValid = true;
                 Debug.Log("yes code is  avaialble .." + checkCode);
             }
-        }
-        if(!isValid)
+        }*/
+        if(!apiManager.ins.isValid)
         {
             showToast("Please check entered Code!", 3);
             Handheld.Vibrate();
@@ -263,9 +262,8 @@ public class LoginManager : MonoBehaviour
     public void OnBackKeyClicked()
     {
 
-       // _PinField2.text = "••••";
-      //  _PinField.text =  transform.GetComponent<Firebasedata>().GenerateCode();
-        //PasswordField.text = transform.GetComponent<Firebasedata>().GenerateCode(); 
+        _PinField.text = "";
+        PasswordField.text = "";
         MemberCodeField.text= NewPasswordField.text = ConfirmPasswordField.text = "";
         UImanager.ins.loginScreen1.SetActive(true);
         UImanager.ins.loginScreen2.SetActive(false);
@@ -286,15 +284,5 @@ public class LoginManager : MonoBehaviour
         _PinField2.text = b;
        
     }
-    public void dummy_PassWord()
-    {
-        string a = "•";
-        string b = "";
-        for (int i = 0; i < PasswordField.text.Length; i++)
-        {
-            b += a;
-        }
-        _dummyPasswordField.text = b;
-
-    }
+    
 }
