@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CAE185D0-4746-2E21-7655-C16DC7256AFB}</ProjectGuid>
+    <ProjectGuid>{7219F785-BD3F-D7AA-B3BF-D2E80DF57CDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -98,6 +98,7 @@
     <Compile Include="Assets/UI/DatePicker/DatePicker_Button.cs" />
     <Compile Include="Assets/DatePicker/3rdParty/com.unity.uiextensions/Runtime/Scripts/ToolTips/BoundTooltip/BoundTooltipItem.cs" />
     <Compile Include="Assets/DatePicker/3rdParty/Shapes2D/Demos/DragCamera.cs" />
+    <Compile Include="Assets/_Mobile platform Assets/Game Scripts/apiManager.cs" />
     <Compile Include="Assets/DatePicker/Scripts/Popup/Popup.cs" />
     <Compile Include="Assets/DatePicker/3rdParty/com.unity.uiextensions/Runtime/Scripts/Controls/ReorderableList/ReorderableListDebug.cs" />
     <Compile Include="Assets/DatePicker/3rdParty/com.unity.uiextensions/Runtime/Scripts/Layout/ScrollSnapScrollbarHelper.cs" />

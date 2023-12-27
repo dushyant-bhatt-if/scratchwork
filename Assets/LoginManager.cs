@@ -12,9 +12,7 @@ public class LoginManager : MonoBehaviour
     public InputField PasswordField;
 
     [SerializeField]
-    private InputField _dummyPasswordField;
-    [SerializeField]
-    private TMP_InputField _PinField;
+    public TMP_InputField _PinField;
     [SerializeField]
     private TMP_InputField _PinField2;
     [Header("== SignUp Fields==")]
@@ -25,7 +23,9 @@ public class LoginManager : MonoBehaviour
     [SerializeField] public Dropdown DateField;
     [SerializeField] public Dropdown MonthField;
     [SerializeField] public Dropdown YearField;
-   // [SerializeField] public TMP_InputField DoB_Text;
+
+    [SerializeField] public Button SignupBtn;
+    // [SerializeField] public TMP_InputField DoB_Text;
 
 
 
@@ -40,8 +40,8 @@ public class LoginManager : MonoBehaviour
         clr = false;
         _PinField.DeactivateInputField();
         _PinField.ActivateInputField();
-        _PinField.text = transform.GetComponent<Firebasedata>().GenerateCode();
-        PasswordField.text = transform.GetComponent<Firebasedata>().GenerateCode();
+        _PinField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
+        PasswordField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
 
     }
 
@@ -50,7 +50,6 @@ public class LoginManager : MonoBehaviour
     {
         string checkCode = _PinField.text;
         screen = UImanager.ins.loginScreen1.transform;
-
         //••••
         bool isValid = false;
         for (int i = 0; i < transform.GetComponent<Firebasedata>().CurrentUser.Count; i++)
@@ -89,6 +88,8 @@ public class LoginManager : MonoBehaviour
             if(transform.GetComponent<Firebasedata>().CurrentUser[i].Membercode == checkCode
                 &&
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
+
+                //&& apiManager.ins.isValid)
             {
                 clr = true;
                 showToast("Login success!", 2);
@@ -114,7 +115,11 @@ public class LoginManager : MonoBehaviour
             shakeDuration = 2;
             return;
         }
-            string _password = NewPasswordField.text;
+
+        StartCoroutine(apiManager.ins.checkMembercode(_mCode));
+
+
+        string _password = NewPasswordField.text;
         string _cPassword = ConfirmPasswordField.text;
         screen = transform.GetComponent<UImanager>().SignUpScreen.transform;
         bool isValid = false;
@@ -127,7 +132,7 @@ public class LoginManager : MonoBehaviour
             } 
         }
       
-        if(!isValid)
+        if(apiManager.ins.isValid && !isValid)
         { 
                 if (_password != "")
                 {
@@ -152,11 +157,11 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                showToast("Please use unique code!", 3);
+                showToast("Please use unique code!", 5);
                 Handheld.Vibrate();
                 shakeDuration = 2;
 
-            }         
+            }       
     }
 
     public Transform screen;
@@ -263,9 +268,9 @@ public class LoginManager : MonoBehaviour
     public void OnBackKeyClicked()
     {
 
-       // _PinField2.text = "••••";
-        _PinField.text =  transform.GetComponent<Firebasedata>().GenerateCode();
-        PasswordField.text = transform.GetComponent<Firebasedata>().GenerateCode(); 
+        // _PinField2.text = "••••";
+        _PinField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
+        PasswordField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode(); 
         MemberCodeField.text= NewPasswordField.text = ConfirmPasswordField.text = "";
         UImanager.ins.loginScreen1.SetActive(true);
         UImanager.ins.loginScreen2.SetActive(false);
@@ -294,7 +299,7 @@ public class LoginManager : MonoBehaviour
         {
             b += a;
         }
-        _dummyPasswordField.text = b;
+       //  ju _dummyPasswordField.text = b;
 
     }
 }

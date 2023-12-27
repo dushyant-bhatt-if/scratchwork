@@ -52,10 +52,22 @@ public class Firebasedata : MonoBehaviour
             var dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
-                db = FirebaseDatabase.GetInstance(firebaseUrl);             
-                foreach(User us in CurrentUser)
+                db = FirebaseDatabase.GetInstance(firebaseUrl);
+
+                db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
+                LoginManager.ins.clr = true;
+                LoginManager.ins.showToast("Succesfully signed up!", 3);
+                UImanager.ins.SignUpScreen.SetActive(false);
+                UImanager.ins.MainScreen.SetActive(true);
+                updateUsers();
+                LoginManager.ins.OnBackKeyClicked();
+
+
+                /*if(CurrentUser.Count!=0)
                 {
-                    if(us.Membercode == user.Membercode)
+                foreach (User us in CurrentUser)
+                { 
+                    if (us.Membercode == user.Membercode)
                     {
                         LoginManager.ins.clr = false;
 
@@ -72,10 +84,24 @@ public class Firebasedata : MonoBehaviour
                         UImanager.ins.SignUpScreen.SetActive(false);
                         UImanager.ins.MainScreen.SetActive(true);
                         updateUsers();
+                            LoginManager.ins.OnBackKeyClicked();
+
                     }
                 }
+            }
+                else
+                {
+                    db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
+                    LoginManager.ins.clr = true;
+                    LoginManager.ins.showToast("Succesfully signed up!", 3);
+                    UImanager.ins.SignUpScreen.SetActive(false);
+                    UImanager.ins.MainScreen.SetActive(true);
+                    updateUsers();
+                    LoginManager.ins.OnBackKeyClicked();
 
-             
+                }*/
+
+
             }
         });
     }

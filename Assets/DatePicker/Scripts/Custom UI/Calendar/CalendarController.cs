@@ -97,6 +97,14 @@ namespace CustomDatePicker
         private void OnEnable()
         {
             calendarInstance = this;
+
+
+            LoginManager.ins.DateField.captionText.text = today.Day.ToString("00");
+            LoginManager.ins.MonthField.captionText.text = months[today.Month].ToString();
+            LoginManager.ins.YearField.captionText.text = today.Year.ToString();
+
+
+
             if (date != null) date.color = onEditingDateTextColor;
         }
         private void OnDisable()
