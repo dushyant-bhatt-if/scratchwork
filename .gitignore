@@ -83,3 +83,7 @@ Assets/Scenes/Menu.unity
 *.asset
 ProjectSettings/ProjectSettings.asset
 UserSettings/Layouts/default-2022.dwlt
+Assets/StreamingAssets/build_info
+Assets/StreamingAssets/google-services-desktop.json
+ProjectSettings/ProjectSettings.asset
+UserSettings/Layouts/default-2022.dwlt
