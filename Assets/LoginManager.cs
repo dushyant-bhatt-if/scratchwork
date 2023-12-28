@@ -67,7 +67,7 @@ public class LoginManager : MonoBehaviour
             shakeDuration = 2;
         }
         else if (checkCode.Length < 3)
-        { showToast("Insert 4 digit code!", 3);
+        { showToast("Member code doesn't exist", 3);
             Handheld.Vibrate();
             shakeDuration = 2; 
         }
@@ -110,7 +110,7 @@ public class LoginManager : MonoBehaviour
         string _mCode = MemberCodeField.text;
         if (_mCode == "")
         {
-            showToast("Please enter unique code first!", 3);
+            showToast("Member code doesn't exist", 3);
             Handheld.Vibrate();
             shakeDuration = 2;
             return;
@@ -157,7 +157,7 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                showToast("Please use unique code!", 5);
+                showToast("User already exist, please Log In", 5);
                 Handheld.Vibrate();
                 shakeDuration = 2;
 

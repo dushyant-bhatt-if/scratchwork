@@ -69,7 +69,7 @@ public class apiManager : MonoBehaviour
                     print("Message : " + jsonNode["message"].Value);
                     if (!isValid)
                     {
-                        LoginManager.ins.showToast("Please use unique code!", 5);
+                        LoginManager.ins.showToast("Member code doesn't exist!", 5);
                         Handheld.Vibrate();
                         LoginManager.ins.shakeDuration = 2;
                         LoginManager.ins.SignupBtn.interactable = false;

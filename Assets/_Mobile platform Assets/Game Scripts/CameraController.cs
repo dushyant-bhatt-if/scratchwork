@@ -28,11 +28,15 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //  if (Input.GetKey(KeyCode.M))
+        //  if (Input.GetKey(KeyCode.M))
         //   ChangeCamera();
+
+
+
     }
 
-   public void ChangeCamera()
+
+    public void ChangeCamera()
     {
         if(Camera3rdView == _actiwCamera)
         {
