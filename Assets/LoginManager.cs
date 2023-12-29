@@ -62,7 +62,7 @@ public class LoginManager : MonoBehaviour
         }
         if(!isValid)
         {
-            showToast("Please check entered Code!", 3);
+            showToast("Member code doesn't exist", 3);
             Handheld.Vibrate();
             shakeDuration = 2;
         }
