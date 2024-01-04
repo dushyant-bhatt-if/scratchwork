@@ -79,6 +79,10 @@ public class LoginManager : MonoBehaviour
     }
     public void ClickOnLogin()
     {
+        StartCoroutine(val());
+    }
+    IEnumerator val()
+    {
         string checkCode = _PinField.text;
         string Passcode = PasswordField.text;
         screen = UImanager.ins.loginScreen2.transform;
@@ -88,12 +92,12 @@ public class LoginManager : MonoBehaviour
             if(transform.GetComponent<Firebasedata>().CurrentUser[i].Membercode == checkCode
                 &&
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
-
-                //&& apiManager.ins.isValid)
             {
                 clr = true;
                 showToast("Login success!", 2);
-                UImanager.ins.GetOnloginSuccess(checkCode);
+                string userId = transform.GetComponent<Firebasedata>().CurrentUser[i].userId;
+               yield return StartCoroutine( apiManager.ins.loginApi(checkCode,userId));
+                //UImanager.ins.GetOnloginSuccess(checkCode);
                 break;
             }
             else
@@ -107,17 +111,26 @@ public class LoginManager : MonoBehaviour
 
     public void ClickOnSignUp()
     {
+        StartCoroutine(getsignUp());
+
+    }
+    IEnumerator getsignUp()
+    { 
         string _mCode = MemberCodeField.text;
         if (_mCode == "")
         {
             showToast("Please enter unique code first!", 3);
             Handheld.Vibrate();
             shakeDuration = 2;
-            return;
+            yield return null;
         }
+        string dobField =
+      CustomDatePicker.CalendarController.calendarInstance.selectedYear + "-" +
+        CustomDatePicker.CalendarController.calendarInstance.selectedMonth + "-" +
+        CustomDatePicker.CalendarController.calendarInstance.selectedDay;
 
-        StartCoroutine(apiManager.ins.checkMembercode(_mCode));
 
+        yield return StartCoroutine(apiManager.ins.checkMembercode(_mCode, dobField));
 
         string _password = NewPasswordField.text;
         string _cPassword = ConfirmPasswordField.text;

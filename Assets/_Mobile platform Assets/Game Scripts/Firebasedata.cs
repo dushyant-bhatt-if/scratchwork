@@ -33,7 +33,7 @@ public class Firebasedata : MonoBehaviour
     FirebaseDatabase db;
     private void Start()
     {
-        updateUsers();
+        updateUsers(); 
      
     }
     public void AddUser()
@@ -42,9 +42,10 @@ public class Firebasedata : MonoBehaviour
         user.Membercode = LoginManager.ins.MemberCodeField.text;
         user.PasswordField =LoginManager.ins.NewPasswordField.text;
         user.CPasswordField = LoginManager.ins.ConfirmPasswordField.text;
-        user.DobField = LoginManager.ins.DateField.captionText.text+"-"+
-                        LoginManager.ins.MonthField.captionText.text+"-"+
-                        LoginManager.ins.YearField.captionText.text;
+        user.DobField = CustomDatePicker.CalendarController.calendarInstance.selectedYear + "-" +
+                        CustomDatePicker.CalendarController.calendarInstance.selectedMonth + "-" +
+                        CustomDatePicker.CalendarController.calendarInstance.selectedDay;
+        user.userId = apiManager.ins.userid;
    
         string json = JsonUtility.ToJson(user);
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(async task =>
@@ -54,53 +55,13 @@ public class Firebasedata : MonoBehaviour
             {
                 db = FirebaseDatabase.GetInstance(firebaseUrl);
 
-                db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
+                db.GetReference("UserData").Child(user.Membercode).SetRawJsonValueAsync(json);
                 LoginManager.ins.clr = true;
                 LoginManager.ins.showToast("Succesfully signed up!", 3);
                 UImanager.ins.SignUpScreen.SetActive(false);
                 UImanager.ins.MainScreen.SetActive(true);
                 updateUsers();
                 LoginManager.ins.OnBackKeyClicked();
-
-
-                /*if(CurrentUser.Count!=0)
-                {
-                foreach (User us in CurrentUser)
-                { 
-                    if (us.Membercode == user.Membercode)
-                    {
-                        LoginManager.ins.clr = false;
-
-                        LoginManager.ins.showToast("Please enter unique code!", 3);
-                        Handheld.Vibrate();
-                        LoginManager.ins.shakeDuration = 2;
-                        break;
-                    }
-                    else
-                    {
-                        db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
-                        LoginManager.ins.clr = true;
-                        LoginManager.ins.showToast("Succesfully signed up!", 3);
-                        UImanager.ins.SignUpScreen.SetActive(false);
-                        UImanager.ins.MainScreen.SetActive(true);
-                        updateUsers();
-                            LoginManager.ins.OnBackKeyClicked();
-
-                    }
-                }
-            }
-                else
-                {
-                    db.GetReference("User").Child(user.Membercode).SetRawJsonValueAsync(json);
-                    LoginManager.ins.clr = true;
-                    LoginManager.ins.showToast("Succesfully signed up!", 3);
-                    UImanager.ins.SignUpScreen.SetActive(false);
-                    UImanager.ins.MainScreen.SetActive(true);
-                    updateUsers();
-                    LoginManager.ins.OnBackKeyClicked();
-
-                }*/
-
 
             }
         });
@@ -113,8 +74,9 @@ public class Firebasedata : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 db = FirebaseDatabase.GetInstance(firebaseUrl);
+               
                 CurrentUser = new List<User>();
-                var snapshot = await db.GetReference("User").GetValueAsync();
+                var snapshot = await db.GetReference("UserData").GetValueAsync();
                 string data = snapshot.GetRawJsonValue();
 
                 JSONNode CurrentUser_ = SimpleJSON.JSONNode.Parse(data);
@@ -122,10 +84,11 @@ public class Firebasedata : MonoBehaviour
                 for (int i = 0; i < CurrentUser_.Count; i++)
                 {
                     User us = new User();
-                    us.CPasswordField = CurrentUser_[i][3];
-                    us.Membercode = CurrentUser_[i][2];
                     us.PasswordField = CurrentUser_[i][0];
                     us.DobField = CurrentUser_[i][1];
+                    us.Membercode = CurrentUser_[i][2];
+                    us.CPasswordField = CurrentUser_[i][3];
+                    us.userId = CurrentUser_[i][4];
                     CurrentUser.Add(us);
                 }
             }
@@ -152,7 +115,7 @@ public class User
     public string PasswordField;
     public string CPasswordField;
     public string DobField;
-
+    public string userId;
     public static User CreateFromJSON(string jsonString)
     {
         return JsonUtility.FromJson<User>(jsonString);
