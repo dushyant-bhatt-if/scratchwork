@@ -1,10 +1,11 @@
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace StarterAssets
 {
     public class UICanvasControllerInput : MonoBehaviour
     {
 
+        public Toggle tag;
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
 
@@ -18,12 +19,6 @@ namespace StarterAssets
             starterAssetsInputs.LookInput(virtualLookDirection);
         }
 
-
-        public void ClickOnBtn()
-        {
-            starterAssetsInputs.LookInput(new Vector2(0,0));
-
-        }
         public void VirtualJumpInput(bool virtualJumpState)
         {
             starterAssetsInputs.JumpInput(virtualJumpState);
@@ -33,7 +28,14 @@ namespace StarterAssets
         {
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
-        
+
+        public void virtualSprintOp()
+        {
+            
+            VirtualSprintInput(tag.isOn);
+
+        }
+
     }
 
 }
