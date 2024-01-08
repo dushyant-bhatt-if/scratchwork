@@ -24,6 +24,11 @@ public class Camera_Collider : MonoBehaviour
             Debug.Log(" Player Enter in "+ other.name);
             FindObjectOfType<CameraController>().SetCamToFirstView();
 
+            if(transform.gameObject.name == "PressPlay Store")
+            {
+                transform.GetComponent<UITextTypeWriter>().StartWriting();
+            }
+
         }
     }
 

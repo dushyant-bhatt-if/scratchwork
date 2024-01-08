@@ -1,28 +1,27 @@
 {
   "project_info": {
-    "project_number": "1018872533671",
-    "project_id": "mvp-project-408f4",
-    "storage_bucket": "mvp-project-408f4.appspot.com"
+    "project_number": "71563961465",
+    "firebase_url": "https://mvp-project-f9929-default-rtdb.firebaseio.com",
+    "project_id": "mvp-project-f9929",
+    "storage_bucket": "mvp-project-f9929.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1018872533671:ios:6e2f76016fa10056c74182",
+        "mobilesdk_app_id": "1:71563961465:android:6e83883784c6af96dde0a8",
         "android_client_info": {
-          "package_name": "com.Scratchwork.ScratchworkGame"
+          "package_name": "com.scratchwork.mvpknowledge"
         }
       },
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC6VbphG1xhfbttd7exYdz7mvvCf53S_sI"
+          "current_key": "AIzaSyA7WJuFsBgziNIpfoGsqjbyeAw-vyTZBrg"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 0
-        },
         "appinvite_service": {
-          "status": 1
+          "other_platform_oauth_client": []
         }
       }
     }

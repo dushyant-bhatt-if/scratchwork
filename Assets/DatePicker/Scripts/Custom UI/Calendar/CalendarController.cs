@@ -45,7 +45,7 @@ namespace CustomDatePicker
         private Image previousClickedImage;
         public static CalendarController calendarInstance;
         DateTime today;
-        private int selectedDay, selectedMonth, selectedYear;
+        public int selectedDay, selectedMonth, selectedYear;
         private DateTile currentSelectedTile;
         void Start()
         {

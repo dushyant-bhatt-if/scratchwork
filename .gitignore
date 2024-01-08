@@ -78,12 +78,5 @@ Assets/Firebase/Plugins/x86_64/FirebaseCppApp-11_6_0.bundle
 Assets/Art/Models/Main island/Cloud Villa.fbx
 Assets/Art/Models/Cloud Villa/Cloud Villa Mall.fbx
 Assets/Scenes/Menu.unity
-*.meta
-*.asset
-*.asset
-ProjectSettings/ProjectSettings.asset
-UserSettings/Layouts/default-2022.dwlt
-Assets/StreamingAssets/build_info
-Assets/StreamingAssets/google-services-desktop.json
-ProjectSettings/ProjectSettings.asset
-UserSettings/Layouts/default-2022.dwlt
+Assets/.DS_Store
+Assets/.DS_Store

@@ -32,6 +32,7 @@ public class apiManager : MonoBehaviour
     public bool isValid;
     public string userid;
    public LoginRoot LoginData;
+    public string warningMsg;
     public IEnumerator checkMembercode(string field,string dobField)
     {
         if (field != "" && dobField !="")
@@ -48,14 +49,11 @@ public class apiManager : MonoBehaviour
              new UnityWebRequest(new Uri(memberCode_Url), UnityWebRequest.kHttpVerbPOST))
             {
                 request.SetRequestHeader("Content-Type", "application/json");
-                // request.SetRequestHeader("Authorization", UserData.userAuthToken);
-
                 var jsonBytes = System.Text.Encoding.UTF8.GetBytes(body);
                 request.uploadHandler = new UploadHandlerRaw(jsonBytes);
                 request.downloadHandler = new DownloadHandlerBuffer();
 
                 yield return request.SendWebRequest();
-
 
                 if (request.result == UnityWebRequest.Result.ConnectionError
                     || request.result == UnityWebRequest.Result.ProtocolError
@@ -74,21 +72,17 @@ public class apiManager : MonoBehaviour
                     print(jsonNode["status"].Value);
                     print(jsonNode["isExist"].Value);
                     print("Message : " + jsonNode["message"].Value);
-                    string warningMsg = jsonNode["message"].Value;
+                     warningMsg = jsonNode["message"].Value;
                     if (!isValid)
                     {
-                       // LoginManager.ins.showToast("Please use unique code!", 5);
                         LoginManager.ins.showToast(warningMsg, 5);
 
                         Handheld.Vibrate();
                         LoginManager.ins.shakeDuration = 2;
-                       // LoginManager.ins.SignupBtn.interactable = false;
                     }
                     else if (isValid)
                     {
                         userid = jsonNode["userId"].Value;
-                       // LoginManager.ins.SignupBtn.interactable = true;
-
                     }
 
                 }
@@ -135,6 +129,7 @@ public class apiManager : MonoBehaviour
               
                 print(LoginData.status);
                 string name = LoginData.data.name;
+                PlayerPrefs.SetInt("coins", LoginData.data.totalCoin);
                 UImanager.ins.GetOnloginSuccess(name);
             }
         }
@@ -159,6 +154,9 @@ public class LoginData
     public string name ;
     public string birthday ;
     public int totalCoin ;
+    public string familyName;
+    public string givenName;
+
 }
 [System.Serializable]
 

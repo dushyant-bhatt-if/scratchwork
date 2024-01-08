@@ -170,7 +170,7 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                showToast("Please use unique code!", 5);
+                showToast(apiManager.ins.warningMsg, 5);
                 Handheld.Vibrate();
                 shakeDuration = 2;
 
