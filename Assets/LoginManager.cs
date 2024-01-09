@@ -124,57 +124,73 @@ public class LoginManager : MonoBehaviour
             shakeDuration = 2;
             yield return null;
         }
-        string dobField =
-      CustomDatePicker.CalendarController.calendarInstance.selectedYear + "-" +
-        CustomDatePicker.CalendarController.calendarInstance.selectedMonth + "-" +
-        CustomDatePicker.CalendarController.calendarInstance.selectedDay;
-
-
-        yield return StartCoroutine(apiManager.ins.checkMembercode(_mCode, dobField));
-
-        string _password = NewPasswordField.text;
-        string _cPassword = ConfirmPasswordField.text;
-        screen = transform.GetComponent<UImanager>().SignUpScreen.transform;
-        bool isValid = false;
-        for (int i = 0; i < transform.GetComponent<Firebasedata>().CurrentUser.Count; i++)
+        else if (NewPasswordField.text == "")
         {
-            if (_mCode == transform.GetComponent<Firebasedata>().CurrentUser[i].Membercode)
-            {
-                isValid = true;
-                Debug.Log("yes code is already avaialble .." + _mCode);
-            } 
+            showToast("Please enter Password!", 3);
+            Handheld.Vibrate();
+            shakeDuration = 2;
+            yield return null;
         }
-      
-        if(apiManager.ins.isValid && !isValid)
-        { 
-                if (_password != "")
-                {
-                    if (_password == _cPassword)
-                    {
-                        transform.GetComponent<Firebasedata>().AddUser();
-                    }
-                    else
-                    {
-                        showToast("Please check confirm password!", 3);
-                        Handheld.Vibrate();
-                        shakeDuration = 2;
-                    }
-                }
-                else
-                {
-                    showToast("Password can't be empty!", 3);
-                    Handheld.Vibrate();
-                    shakeDuration = 2;
-                };
+        else if (ConfirmPasswordField.text == "")
+        {
+            showToast("Please enter confirm Password!", 3);
+            Handheld.Vibrate();
+            shakeDuration = 2;
+            yield return null;
+        }
+        else if (NewPasswordField.text != ConfirmPasswordField.text)
+        {
+            showToast("Please check confirm password!", 3);
+            Handheld.Vibrate();
+            shakeDuration = 2;
+            yield return null;
+        }
+        else if (CustomDatePicker.CalendarController.calendarInstance == null)
+        {
+            showToast("Please select date of birth!", 3);
+            Handheld.Vibrate();
+            shakeDuration = 2;
+            yield return null;
+        }
 
+        else
+        {
+            string dobField =
+            CustomDatePicker.CalendarController.calendarInstance.selectedYear + "-" +
+            CustomDatePicker.CalendarController.calendarInstance.selectedMonth + "-" +
+            CustomDatePicker.CalendarController.calendarInstance.selectedDay;
+
+
+            yield return StartCoroutine(apiManager.ins.checkMembercode(_mCode, dobField));
+
+            screen = transform.GetComponent<UImanager>().SignUpScreen.transform;
+            bool isValid = false;
+            for (int i = 0; i < transform.GetComponent<Firebasedata>().CurrentUser.Count; i++)
+            {
+                if (_mCode == transform.GetComponent<Firebasedata>().CurrentUser[i].Membercode)
+                {
+                    isValid = true;
+                    Debug.Log("yes code is already avaialble .." + _mCode);
+                }
+            }
+
+            if (isValid)
+            {
+                showToast("User already exist, please Log In", 3);
+                Handheld.Vibrate();
+                shakeDuration = 2;
+            }
+            else if (apiManager.ins.isValid && !isValid)
+            {
+                transform.GetComponent<Firebasedata>().AddUser();
             }
             else
             {
                 showToast(apiManager.ins.warningMsg, 5);
                 Handheld.Vibrate();
                 shakeDuration = 2;
-
-            }       
+            }
+        }    
     }
 
     public Transform screen;
@@ -281,9 +297,8 @@ public class LoginManager : MonoBehaviour
     public void OnBackKeyClicked()
     {
 
-        // _PinField2.text = "••••";
-        _PinField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
-        PasswordField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode(); 
+        _PinField.text = "";
+        PasswordField.text = "";
         MemberCodeField.text= NewPasswordField.text = ConfirmPasswordField.text = "";
         UImanager.ins.loginScreen1.SetActive(true);
         UImanager.ins.loginScreen2.SetActive(false);

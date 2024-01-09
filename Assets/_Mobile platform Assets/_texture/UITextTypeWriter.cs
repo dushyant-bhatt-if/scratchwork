@@ -23,18 +23,20 @@ public class UITextTypeWriter : MonoBehaviour
 	void Awake()
 	{
 		//txt = GetComponent<Text>();
-		story = "Welcome to the MyVillage Project Knowledge Experience!  Go search for some knowledge.....";// txt.text;
+		//story = "Welcome to the MyVillage Project Knowledge Experience!  Go search for some knowledge.....";// txt.text;
 		txt.text = "";
-
+		istrue = false;
 		
 	}
-
+	bool istrue;
 	public void StartWriting()
     {
+		if(!istrue)
 		StartCoroutine("PlayText");
 	}
 	IEnumerator PlayText()
 	{
+		istrue = true;
 		foreach (char c in story)
 		{
 			txt.text += c;
