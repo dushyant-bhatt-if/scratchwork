@@ -33,8 +33,8 @@ public class Firebasedata : MonoBehaviour
     FirebaseDatabase db;
     private void Start()
     {
-        //updateUsers();
-        InvokeRepeating("updateUsers", 1,10);
+        updateUsers();
+        //InvokeRepeating("updateUsers", 1,10);
     }
     public void AddUser()
     {
