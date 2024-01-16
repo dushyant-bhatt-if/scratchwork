@@ -36,6 +36,8 @@ public class Firebasedata : MonoBehaviour
         updateUsers();
         //InvokeRepeating("updateUsers", 1,10);
     }
+
+
     public void AddUser()
     {
         User user = new User();
@@ -93,6 +95,8 @@ public class Firebasedata : MonoBehaviour
                 }
             }
         });
+
+        Invoke("updateUsers", 60);
                
     }
     // Update is called once per frame

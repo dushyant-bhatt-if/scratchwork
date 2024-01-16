@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Camera_Collider : MonoBehaviour
 {
@@ -19,7 +20,14 @@ public class Camera_Collider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+
+        if(transform.tag == "NextScene" && other.tag == "Player")
+        {
+            Debug.Log(" Player Enter in " + other.transform.localPosition);
+
+            SceneManager.LoadSceneAsync(2); 
+        }
+        else if (other.tag == "Player")
         {
             Debug.Log(" Player Enter in "+ other.name);
             FindObjectOfType<CameraController>().SetCamToFirstView();
