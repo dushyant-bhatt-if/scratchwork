@@ -11,32 +11,34 @@ public class Camera_Collider : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
     private void OnTriggerEnter(Collider other)
     {
-
         if(transform.tag == "NextScene" && other.tag == "Player")
         {
-            Debug.Log(" Player Enter in " + other.transform.localPosition);
 
-            SceneManager.LoadSceneAsync(2); 
+
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                Debug.Log(other.transform.localPosition);
+                
+                SceneManager.LoadSceneAsync(2);
+            }
+            else
+            {
+                SceneManager.LoadSceneAsync(1);
+            }
+
+
         }
+
         else if (other.tag == "Player")
         {
             Debug.Log(" Player Enter in "+ other.name);
             FindObjectOfType<CameraController>().SetCamToFirstView();
-
             if(transform.gameObject.name == "PressPlay Store")
             {
                 transform.GetComponent<UITextTypeWriter>().StartWriting();
             }
-
         }
     }
 

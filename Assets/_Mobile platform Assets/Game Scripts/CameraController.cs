@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     public static CameraController ins;
@@ -12,24 +13,25 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera Camera3rdView;
     public GameObject CharacterModal;
 
+    public GameObject player;
+    public Transform _pos;
+
+    bool isreturn;
     private void Awake()
     {
         if (ins == null)
             ins = this;
     }
-    //public CinemachineVirtualCamera CameraOrbit;
     // Start is called before the first frame update
     void Start()
     {
         Camera3rdView.Priority += activeCameraPriorityModife;
         _actiwCamera = Camera3rdView;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-      //  if (Input.GetKey(KeyCode.M))
-        //   ChangeCamera();
+        if (isreturn)
+            player.transform.localPosition = _pos.localPosition;
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        { SetCamToFirstView(); isreturn = true; }
     }
 
    public void ChangeCamera()

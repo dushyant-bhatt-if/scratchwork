@@ -81,3 +81,8 @@ Assets/Scenes/Menu.unity
 Assets/.DS_Store
 Assets/.DS_Store
 Assets/StreamingAssets/build_info
+Assets/StreamingAssets/build_info
+Assets/StreamingAssets/build_info
+ProjectSettings/ProjectSettings.asset
+UserSettings/EditorUserSettings.asset
+*.dwlt
