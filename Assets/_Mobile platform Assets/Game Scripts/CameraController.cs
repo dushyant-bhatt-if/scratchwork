@@ -16,7 +16,6 @@ public class CameraController : MonoBehaviour
     public GameObject player;
     public Transform _pos;
 
-    bool isreturn;
     private void Awake()
     {
         if (ins == null)
@@ -27,11 +26,16 @@ public class CameraController : MonoBehaviour
     {
         Camera3rdView.Priority += activeCameraPriorityModife;
         _actiwCamera = Camera3rdView;
+        int a = PlayerPrefs.GetInt("isReturn");
+        Debug.Log("Here... calls from " + transform.name + PlayerPrefs.GetInt("isReturn"));
+        Debug.Log(a + "......... isReturn ");
+        if (a==1)
+        { player.transform.position = _pos.localPosition;// new Vector3(-47, 9.6f, -100);
+            PlayerPrefs.SetInt("isReturn", 0);
 
-        if (isreturn)
-            player.transform.localPosition = _pos.localPosition;
+        }
         if (SceneManager.GetActiveScene().buildIndex == 2)
-        { SetCamToFirstView(); isreturn = true; }
+        { SetCamToFirstView(); }
     }
 
    public void ChangeCamera()

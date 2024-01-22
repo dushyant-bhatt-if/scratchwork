@@ -13,25 +13,7 @@ public class Camera_Collider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(transform.tag == "NextScene" && other.tag == "Player")
-        {
-
-
-            if (SceneManager.GetActiveScene().buildIndex == 1)
-            {
-                Debug.Log(other.transform.localPosition);
-                
-                SceneManager.LoadSceneAsync(2);
-            }
-            else
-            {
-                SceneManager.LoadSceneAsync(1);
-            }
-
-
-        }
-
-        else if (other.tag == "Player")
+        if (other.tag == "Player")
         {
             Debug.Log(" Player Enter in "+ other.name);
             FindObjectOfType<CameraController>().SetCamToFirstView();
