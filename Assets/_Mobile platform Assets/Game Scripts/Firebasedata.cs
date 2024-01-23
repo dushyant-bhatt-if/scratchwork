@@ -31,12 +31,14 @@ public class Firebasedata : MonoBehaviour
 
     public List<User> CurrentUser;
     FirebaseDatabase db;
-    private void Start()
+    private void Awake()
     {
         updateUsers();
-        //InvokeRepeating("updateUsers", 1,10);
     }
 
+    private void Start()
+    {
+    }
 
     public void AddUser()
     {
@@ -68,6 +70,7 @@ public class Firebasedata : MonoBehaviour
             }
         });
     }
+    bool isUpdated = false;
     void updateUsers()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(async task =>
@@ -76,7 +79,7 @@ public class Firebasedata : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 db = FirebaseDatabase.GetInstance(firebaseUrl);
-               
+
                 CurrentUser = new List<User>();
                 var snapshot = await db.GetReference("UserData").GetValueAsync();
                 string data = snapshot.GetRawJsonValue();
@@ -92,17 +95,19 @@ public class Firebasedata : MonoBehaviour
                     us.CPasswordField = CurrentUser_[i][3];
                     us.userId = CurrentUser_[i][4];
                     CurrentUser.Add(us);
+
+                    Debug.Log(".. " + us.userId);
                 }
             }
         });
 
         Invoke("updateUsers", 60);
-               
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        
+       // if (isUpdated)
+       // { LoginManager.ins.ClickOnLogin(); isUpdated = false; }
     }
 }
 

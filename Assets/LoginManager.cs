@@ -25,7 +25,6 @@ public class LoginManager : MonoBehaviour
     [SerializeField] public Dropdown YearField;
 
     [SerializeField] public Button SignupBtn;
-    // [SerializeField] public TMP_InputField DoB_Text;
 
 
 
@@ -40,9 +39,16 @@ public class LoginManager : MonoBehaviour
         clr = false;
         _PinField.DeactivateInputField();
         _PinField.ActivateInputField();
-        _PinField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
-        PasswordField.text = "";// transform.GetComponent<Firebasedata>().GenerateCode();
+        _PinField.text = PlayerPrefs.GetString("membercode","");
+        // transform.GetComponent<Firebasedata>().GenerateCode();
+        PasswordField.text =
+        PlayerPrefs.GetString("Passcode", "");
 
+        if( PasswordField.text !="" && _PinField.text != "")
+        {
+            UImanager.ins.loadingScreen.SetActive(true);
+            Invoke("ClickOnLogin", 4f);
+        }
     }
 
 
@@ -79,6 +85,8 @@ public class LoginManager : MonoBehaviour
     }
     public void ClickOnLogin()
     {
+        Debug.Log(".... here 1");
+
         StartCoroutine(val());
     }
     IEnumerator val()
@@ -86,6 +94,7 @@ public class LoginManager : MonoBehaviour
         string checkCode = _PinField.text;
         string Passcode = PasswordField.text;
         screen = UImanager.ins.loginScreen2.transform;
+        Debug.Log(checkCode + "  ...  "+ Passcode);
 
         for(int i=0;i< transform.GetComponent<Firebasedata>().CurrentUser.Count;i++)
         {
@@ -95,6 +104,9 @@ public class LoginManager : MonoBehaviour
             {
                 clr = true;
                 showToast("Login success!", 2);
+                PlayerPrefs.SetString("membercode", checkCode);
+                PlayerPrefs.SetString("Passcode", Passcode);
+
                 string userId = transform.GetComponent<Firebasedata>().CurrentUser[i].userId;
                yield return StartCoroutine( apiManager.ins.loginApi(checkCode,userId));
                 //UImanager.ins.GetOnloginSuccess(checkCode);
@@ -102,6 +114,8 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
+                UImanager.ins.loadingScreen.SetActive(false);
+
                 showToast("Please check login details!", 3);
                 Handheld.Vibrate();
                 shakeDuration = 2;

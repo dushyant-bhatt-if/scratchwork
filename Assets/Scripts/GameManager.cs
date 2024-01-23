@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 }
     public void UI_ExitBtn()
     {
+        PlayerPrefs.SetString("membercode", "");
+        PlayerPrefs.SetString("Passcode", "");
         SceneManager.LoadScene(0);
 
     }
