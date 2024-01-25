@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SimpleJSON;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class apiManager : MonoBehaviour
@@ -124,16 +125,17 @@ public class apiManager : MonoBehaviour
             }
             else
             {
-
-                LoginData = JsonUtility.FromJson<LoginRoot>(request.downloadHandler.text);
-              
+                LoginData = JsonUtility.FromJson<LoginRoot>(request.downloadHandler.text);              
                 print(LoginData.status);
                 string name = LoginData.data.name;
                 PlayerPrefs.SetInt("coins", LoginData.data.totalCoin);
-                UImanager.ins.GetOnloginSuccess(name);
+
+                if (PlayerPrefs.GetInt("inPlay")==1)
+                   SceneManager.LoadSceneAsync(1);
+                else
+                    UImanager.ins.GetOnloginSuccess(name);
             }
         }
-
     }
     #endregion
 }

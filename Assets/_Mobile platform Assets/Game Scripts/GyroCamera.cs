@@ -47,8 +47,6 @@ public class CameraMovement : MonoBehaviour
 				yield return null;
 			}
 		MenuScreen.GetComponent<Animation>().Play("SliderClose");
-
-		//MenuScreen.GetComponent<Animation>().Play("menuOpen");
 	}
 
 	public GameObject MenuScreen;
@@ -56,8 +54,6 @@ public class CameraMovement : MonoBehaviour
 	public IEnumerator OnReturnPos()
     {
 		MenuScreen.GetComponent<Animation>().Play("SliderOpen");
-
-		//MenuScreen.GetComponent<Animation>().Play("menuClose");		
 		float elapsedTime = 0f;
 
 				// Lerping the rotation back to the original rotation
@@ -70,17 +66,8 @@ public class CameraMovement : MonoBehaviour
 					transform.rotation = newRotation;
 					yield return null;
 				}
-
 		transform.GetComponent<Cinemachine.CinemachineBrain>().enabled = true;
-
 		yield return null;
 		// Wait for a brief moment before starting the rotation again
 	}
-
-	#region UI_Btns
-	public void BackMenu()
-    {
-		SceneManager.LoadScene(0);
-	}
-	#endregion
 }

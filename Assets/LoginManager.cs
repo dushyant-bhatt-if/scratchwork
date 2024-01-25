@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class LoginManager : MonoBehaviour
 {
 
@@ -40,14 +42,15 @@ public class LoginManager : MonoBehaviour
         _PinField.DeactivateInputField();
         _PinField.ActivateInputField();
         _PinField.text = PlayerPrefs.GetString("membercode","");
-        // transform.GetComponent<Firebasedata>().GenerateCode();
-        PasswordField.text =
-        PlayerPrefs.GetString("Passcode", "");
+        PasswordField.text = PlayerPrefs.GetString("Passcode", "");
+        PlayerPrefs.SetInt("inPlay", 0);
 
-        if( PasswordField.text !="" && _PinField.text != "")
+        if ( PasswordField.text !="" && _PinField.text != "")
         {
             UImanager.ins.loadingScreen.SetActive(true);
             Invoke("ClickOnLogin", 4f);
+            PlayerPrefs.SetInt("inPlay", 1);
+
         }
     }
 
@@ -103,7 +106,11 @@ public class LoginManager : MonoBehaviour
                 transform.GetComponent<Firebasedata>().CurrentUser[i].PasswordField == Passcode)
             {
                 clr = true;
-                showToast("Login success!", 2);
+                if (PlayerPrefs.GetString("membercode", "") != checkCode && PlayerPrefs.GetString("Passcode", "") != Passcode)
+                {
+                    showToast("Login success!", 2);
+                    
+                }
                 PlayerPrefs.SetString("membercode", checkCode);
                 PlayerPrefs.SetString("Passcode", Passcode);
 
@@ -115,8 +122,9 @@ public class LoginManager : MonoBehaviour
             else
             {
                 UImanager.ins.loadingScreen.SetActive(false);
-
-                showToast("Please check login details!", 3);
+                PasswordField.text = "";
+                _PinField.text = "";
+               showToast("Please check login details!", 3);
                 Handheld.Vibrate();
                 shakeDuration = 2;
             }
